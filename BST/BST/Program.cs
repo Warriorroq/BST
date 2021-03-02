@@ -11,9 +11,11 @@ namespace BST
             a.Add(9);
             a.Add(-5);
             a.Add(3);
-            Console.WriteLine(a.Remove(1));
             a.Add(1);
-            Console.WriteLine(a.Find(2));
+            foreach(var b in a)
+            {
+                Console.WriteLine(b);
+            }
         }
     }
 }

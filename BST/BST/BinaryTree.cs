@@ -56,6 +56,13 @@ namespace BST
             else
                 return tree;
         }
+        private void PreOrder(BinaryTree<T> tree, Queue<T> values)
+        {
+            if (tree is null) return;
+            values.Enqueue(tree.item);
+            PreOrder(tree.left, values);
+            PreOrder(tree.right, values);
+        }
         #endregion
         #region Remove
         public BinaryTree<T> Remove(T val)
@@ -81,18 +88,12 @@ namespace BST
         #region Iterator
         public IEnumerator GetEnumerator()
         {
-            BinaryTree<T> last = null;
-            BinaryTree<T> current = this;
-
-            while(current != null)
+            Queue<T> nums = new Queue<T>();
+            PreOrder(this, nums); 
+            while(nums.Count != 0)
             {
-                if(current.right == null && current.left == null)
-                {
-                    yield return current.item;
-                }
-            }//working
-            last = current;
-            current = current.right;
+                yield return nums.Dequeue();
+            }
         }
         #endregion
     }
