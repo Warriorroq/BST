@@ -13,14 +13,12 @@ namespace BST
         private BinaryTree<T> right;
         public T item;
 
-        public object Current => throw new NotImplementedException();
-
         public BinaryTree(T item, BinaryTree<T> parent)
         {
             this.item = item;
             this.parent = parent;
         }
-        #region CreateBinary
+        #region Create or Add BinaryTree
         public void Add(T item)
         {
             if (item.CompareTo(this.item) < 0)
@@ -40,7 +38,7 @@ namespace BST
             binaryTree = new BinaryTree<T>(item, this);
         }
         #endregion
-        #region FindBinary
+        #region Find BinaryTree
         public BinaryTree<T> Find(T item)
         {
             return Find(this, item);
@@ -56,15 +54,8 @@ namespace BST
             else
                 return tree;
         }
-        private void PreOrder(BinaryTree<T> tree, Queue<T> values)
-        {
-            if (tree is null) return;
-            values.Enqueue(tree.item);
-            PreOrder(tree.left, values);
-            PreOrder(tree.right, values);
-        }
         #endregion
-        #region Remove
+        #region Remove Tree
         public BinaryTree<T> Remove(T val)
         {
             BinaryTree<T> removeTree = Find(this, val);
@@ -85,7 +76,14 @@ namespace BST
             return removeTree;
         }
         #endregion
-        #region Iterator
+        #region Iterator of BinaryTree
+        private void PreOrder(BinaryTree<T> tree, Queue<T> values)
+        {
+            if (tree is null) return;
+            values.Enqueue(tree.item);
+            PreOrder(tree.left, values);
+            PreOrder(tree.right, values);
+        }
         public IEnumerator GetEnumerator()
         {
             Queue<T> nums = new Queue<T>();
@@ -96,5 +94,12 @@ namespace BST
             }
         }
         #endregion
+        public override string ToString()
+        {
+            Queue<T> nums = new Queue<T>();
+            PreOrder(this, nums);
+
+            return $"tree: {string.Join(',', nums)}";
+        }
     }
 }

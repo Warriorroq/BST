@@ -12,10 +12,7 @@ namespace BST
             a.Add(-5);
             a.Add(3);
             a.Add(1);
-            foreach(var b in a)
-            {
-                Console.WriteLine(b);
-            }
+            Console.WriteLine(a.ToString());
         }
     }
 }
