@@ -4,15 +4,18 @@ namespace BST
 {
     class Program
     {
-        static void Main(string[] args)
+        private static Random random = new Random();
+        private static void Main(string[] args)
         {
-            BinaryTree<int> a = new BinaryTree<int>(7, null);
-            a.Add(2);
-            a.Add(9);
-            a.Add(-5);
-            a.Add(3);
-            a.Add(1);
-            Console.WriteLine(a.ToString());
+            Console.WriteLine("Binary Top:");
+            BinaryTree<int> tree = new BinaryTree<int>(int.Parse(Console.ReadLine()), null);
+
+            for(int i = 10; i < 90; i++)
+            {
+                tree.Add(random.Next(-i, i));
+            }
+
+            Console.WriteLine(tree.ToString());
         }
     }
 }

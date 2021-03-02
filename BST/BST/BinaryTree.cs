@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BST
 {
@@ -43,10 +42,18 @@ namespace BST
         {
             return Find(this, item);
         }
+        public bool Contains(T item)
+        {
+            if (!(Find(this, item) is null))
+                return true;
+
+            return false;
+        }
         private BinaryTree<T> Find(BinaryTree<T> tree, T item)
         {
             if (tree is null) 
                 return null;
+
             if(item.CompareTo(tree.item) == 1)
                 return Find(tree.right, item);
             else if (item.CompareTo(tree.item) == -1)
@@ -59,27 +66,29 @@ namespace BST
         public BinaryTree<T> Remove(T val)
         {
             BinaryTree<T> removeTree = Find(this, val);
+
             if(!(removeTree is null))
-            {
                 return RemoveTree(removeTree);
-            }
+            
             return null;
         }
         public BinaryTree<T> RemoveTree(BinaryTree<T> removeTree)
         {
             removeTree.right.parent = removeTree.parent;
             removeTree.right.parent.right = removeTree.right;
+
             if (!(removeTree.left is null))
-            {
                 removeTree.left.parent = removeTree.right;
-            }
+            
             return removeTree;
         }
         #endregion
         #region Iterator of BinaryTree
         private void PreOrder(BinaryTree<T> tree, Queue<T> values)
         {
-            if (tree is null) return;
+            if (tree is null) 
+                return;
+
             values.Enqueue(tree.item);
             PreOrder(tree.left, values);
             PreOrder(tree.right, values);
@@ -88,10 +97,9 @@ namespace BST
         {
             Queue<T> nums = new Queue<T>();
             PreOrder(this, nums); 
+
             while(nums.Count != 0)
-            {
                 yield return nums.Dequeue();
-            }
         }
         #endregion
         public override string ToString()
@@ -99,7 +107,7 @@ namespace BST
             Queue<T> nums = new Queue<T>();
             PreOrder(this, nums);
 
-            return $"tree: {string.Join(',', nums)}";
+            return $"Tree: {string.Join(',', nums)}";
         }
     }
 }
