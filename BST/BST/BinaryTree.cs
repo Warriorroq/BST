@@ -44,10 +44,7 @@ namespace BST
         }
         public bool Contains(T item)
         {
-            if (!(Find(this, item) is null))
-                return true;
-
-            return false;
+            return !(Find(this, item) is null);
         }
         private BinaryTree<T> Find(BinaryTree<T> tree, T item)
         {
@@ -72,7 +69,7 @@ namespace BST
             
             return null;
         }
-        public BinaryTree<T> RemoveTree(BinaryTree<T> removeTree)
+        private BinaryTree<T> RemoveTree(BinaryTree<T> removeTree)
         {
             removeTree.right.parent = removeTree.parent;
             removeTree.right.parent.right = removeTree.right;
@@ -97,6 +94,17 @@ namespace BST
             PreOrder(tree.left, values);
             PreOrder(tree.right, values);
         }
+        private Queue<T> PreOrder(BinaryTree<T> tree)
+        {
+            Queue<T> values = new Queue<T>();
+            if (tree is null)
+                return null;
+
+            values.Enqueue(tree.item);
+            PreOrder(tree.left, values);
+            PreOrder(tree.right, values);
+            return values;
+        }
         private BinaryTree<T> PreOrderLastLeftTree(BinaryTree<T> tree)
         {
             if (!(tree.left is null))
@@ -113,12 +121,23 @@ namespace BST
                 yield return nums.Dequeue();
         }
         #endregion
+        #region Balance Tree
+        public void BalanceTree()
+        {
+            //Ne beite ia tolko eto pridumal
+            List<T> numsList = new List<T>(PreOrder(this));
+            numsList.Sort();
+            this.item = numsList[numsList.Count / 2 + 1];
+            numsList.Remove(this.item);
+            this.left = null;
+            this.right = null;
+            foreach (var a in numsList)
+                Add(a);
+        }
+        #endregion
         public override string ToString()
         {
-            Queue<T> nums = new Queue<T>();
-            PreOrder(this, nums);
-
-            return $"Tree: {string.Join(',', nums)}";
+            return $"Tree: {string.Join(',', PreOrder(this))}";
         }
     }
 }
