@@ -23,12 +23,12 @@ namespace BST
             if (item.CompareTo(this.item) < 0)
                 AddToTree(ref left, item);
             else
-                AddToTree(ref right, item);   
+                AddToTree(ref right, item);
         }
         private void AddToTree(ref BinaryTree<T> tree, T item)
         {
             if (tree is null)
-                CreateBinaryTree(ref tree,  item);
+                CreateBinaryTree(ref tree, item);
             else if (!(tree is null))
                 tree.Add(item);
         }
@@ -78,7 +78,11 @@ namespace BST
             removeTree.right.parent.right = removeTree.right;
 
             if (!(removeTree.left is null))
-                removeTree.left.parent = removeTree.right;
+            {
+                BinaryTree<T> leftTree = PreOrderLastLeftTree(removeTree.right);
+                removeTree.left.parent = leftTree;
+                leftTree.left = removeTree.left;
+            }
             
             return removeTree;
         }
@@ -92,6 +96,13 @@ namespace BST
             values.Enqueue(tree.item);
             PreOrder(tree.left, values);
             PreOrder(tree.right, values);
+        }
+        private BinaryTree<T> PreOrderLastLeftTree(BinaryTree<T> tree)
+        {
+            if (!(tree.left is null))
+                return PreOrderLastLeftTree(tree.left);
+            else
+                return tree;
         }
         public IEnumerator GetEnumerator()
         {
