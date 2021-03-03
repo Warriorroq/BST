@@ -14,6 +14,8 @@ namespace BST
                 tree.Add(random.Next(-i, i));
             }
             Console.WriteLine(tree.ToString());
+            tree.CrismasTree();
+            Console.WriteLine(tree.ToString());
         }
     }
 }

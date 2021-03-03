@@ -122,15 +122,15 @@ namespace BST
         }
         #endregion
         #region Balance Tree
-        public void BalanceTree()
+        public void CrismasTree()
         {
             //Ne beite ia tolko eto pridumal
             List<T> numsList = new List<T>(PreOrder(this));
             numsList.Sort();
-            this.item = numsList[numsList.Count / 2 + 1];
-            numsList.Remove(this.item);
-            this.left = null;
-            this.right = null;
+            item = numsList[(int)((float)numsList.Count / 2 + 0.5f)];
+            numsList.Remove(item);
+            left = null;
+            right = null;
             foreach (var a in numsList)
                 Add(a);
         }
