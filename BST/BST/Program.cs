@@ -21,7 +21,7 @@ namespace BST
 
             Console.WriteLine("Binary Top: (grn,dollar,euro,name)");
             string[] keys = Console.ReadLine().ToUpper().Split(',');
-            Vallet vallet = null;
+            Vallet vallet;
             try
             {
                 vallet = new Vallet(float.Parse(keys[0]), float.Parse(keys[1]), float.Parse(keys[2]), keys[3]);

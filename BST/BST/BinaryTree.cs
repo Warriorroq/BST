@@ -127,7 +127,7 @@ namespace BST
             //Ne beite ia tolko eto pridumal
             List<T> numsList = new List<T>(PreOrder(this));
             numsList.Sort();
-            item = numsList[(int)((float)numsList.Count / 2 + 0.5f)];
+            item = numsList[(int)(((float)numsList.Count / 2) + 0.5f)];
             numsList.Remove(item);
             left = null;
             right = null;

@@ -52,7 +52,7 @@ namespace BST
 
         public int CompareTo(object obj)
         {
-            Vallet objVallet = (obj as Vallet) is null ? new Vallet(0,0,0,"") : obj as Vallet;
+            Vallet objVallet = obj as Vallet is null ? new Vallet(0, 0, 0, "") : obj as Vallet;
 
             if (objVallet.Monez > Monez)
                 return -1;
@@ -65,9 +65,9 @@ namespace BST
         {
             return $"\n{user}'s vallet:" +
                 $"\n grn {grn}" +
-                $"\n dollar {dollar} - (grn {(dollar * Rate.dollar).ToString("0.0")}) " +
-                $"\n euro {euro} - (grn {(euro * Rate.euro).ToString("0.0")} " +
-                $"\n sum {Monez.ToString("0.0")}";
+                $"\n dollar {dollar} - (grn {dollar * Rate.dollar:0.0}) " +
+                $"\n euro {euro} - (grn {euro * Rate.euro:0.0}) " +
+                $"\n sum {Monez:0.0}";
         }
     }
 }

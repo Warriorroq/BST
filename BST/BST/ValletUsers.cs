@@ -9,6 +9,7 @@ namespace BST
     {
         private const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789";
         private static Random random = new Random();
+
         public static string GetRangomUser
         {
             get
