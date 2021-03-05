@@ -63,7 +63,11 @@ namespace BST
         }
         public override string ToString()
         {
-            return $"\n{user}'s vallet:\n grn {grn}\n dollar {dollar}\n euro {euro}";
+            return $"\n{user}'s vallet:" +
+                $"\n grn {grn}" +
+                $"\n dollar {dollar} - (grn {(dollar * Rate.dollar).ToString("0.0")}) " +
+                $"\n euro {euro} - (grn {(euro * Rate.euro).ToString("0.0")} " +
+                $"\n sum {Monez.ToString("0.0")}";
         }
     }
 }

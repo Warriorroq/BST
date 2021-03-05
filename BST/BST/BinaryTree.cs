@@ -135,6 +135,10 @@ namespace BST
                 Add(a);
         }
         #endregion
+        public string ToString(char join)
+        {
+            return $"Tree: {string.Join(join, PreOrder(this))}";
+        }
         public override string ToString()
         {
             return $"Tree: {string.Join(',', PreOrder(this))}";
