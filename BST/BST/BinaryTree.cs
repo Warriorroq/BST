@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace BST
 {
     class BinaryTree<T> : IEnumerable
-        where T : IComparable<T>
+        where T : IComparable
     {
         private BinaryTree<T> parent;
         private BinaryTree<T> left;
