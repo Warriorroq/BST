@@ -37,6 +37,10 @@ namespace BST
             }
             get => euro;
         }
+        public float Monez
+        {
+            get => grn + dollar * Rate.dollar + Rate.euro * euro;
+        }
 
         public Vallet(float grn, float dollar, float euro, string user)
         {
@@ -44,10 +48,6 @@ namespace BST
             Dollar = dollar;
             Euro = euro;
             this.user = user;
-        }
-
-        public float Monez {
-            get => grn + dollar * Rate.dollar + Rate.euro * euro;
         }
 
         public int CompareTo(object obj)
