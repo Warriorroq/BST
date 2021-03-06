@@ -10,6 +10,7 @@ namespace BST
         private float dollar = 1f;
         private float euro = 1f;
         public string user = "";
+
         public float Grn {
             set
             {
@@ -19,6 +20,7 @@ namespace BST
             }
             get => grn;
         }
+
         public float Dollar {
             set
             {
@@ -28,6 +30,7 @@ namespace BST
             }
             get => dollar;
         }
+
         public float Euro {
             set
             {
@@ -37,6 +40,7 @@ namespace BST
             }
             get => euro;
         }
+
         public float Monez
         {
             get => grn + dollar * Rate.dollar + Rate.euro * euro;
@@ -61,6 +65,7 @@ namespace BST
 
             return 0;
         }
+
         public override string ToString()
         {
             return $"\n{user}'s vallet:" +

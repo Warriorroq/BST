@@ -17,7 +17,9 @@ namespace BST
             this.item = item;
             this.parent = parent;
         }
+
         #region Create or Add BinaryTree
+
         public void Add(T item)
         {
             if (item.CompareTo(this.item) < 0)
@@ -25,6 +27,7 @@ namespace BST
             else
                 AddToTree(ref right, item);
         }
+
         private void AddToTree(ref BinaryTree<T> tree, T item)
         {
             if (tree is null)
@@ -32,20 +35,26 @@ namespace BST
             else if (!(tree is null))
                 tree.Add(item);
         }
+
         private void CreateBinaryTree(ref BinaryTree<T> binaryTree, T item)
         {
             binaryTree = new BinaryTree<T>(item, this);
         }
+
         #endregion
+
         #region Find BinaryTree
+
         public BinaryTree<T> Find(T item)
         {
             return Find(this, item);
         }
+
         public bool Contains(T item)
         {
             return !(Find(this, item) is null);
         }
+
         private BinaryTree<T> Find(BinaryTree<T> tree, T item)
         {
             if (tree is null) 
@@ -58,8 +67,11 @@ namespace BST
             else
                 return tree;
         }
+
         #endregion
+
         #region Remove Tree
+
         public BinaryTree<T> Remove(T val)
         {
             BinaryTree<T> removeTree = Find(this, val);
@@ -69,6 +81,7 @@ namespace BST
             
             return null;
         }
+
         private BinaryTree<T> RemoveTree(BinaryTree<T> removeTree)
         {
             removeTree.right.parent = removeTree.parent;
@@ -83,8 +96,11 @@ namespace BST
             
             return removeTree;
         }
+
         #endregion
+
         #region Iterator of BinaryTree
+
         private void PreOrder(BinaryTree<T> tree, Queue<T> values)
         {
             if (tree is null) 
@@ -94,6 +110,7 @@ namespace BST
             PreOrder(tree.left, values);
             PreOrder(tree.right, values);
         }
+
         private Queue<T> PreOrder(BinaryTree<T> tree)
         {
             Queue<T> values = new Queue<T>();
@@ -105,6 +122,7 @@ namespace BST
             PreOrder(tree.right, values);
             return values;
         }
+
         private BinaryTree<T> PreOrderLastLeftTree(BinaryTree<T> tree)
         {
             if (!(tree.left is null))
@@ -112,6 +130,7 @@ namespace BST
             else
                 return tree;
         }
+
         public IEnumerator GetEnumerator()
         {
             Queue<T> nums = new Queue<T>();
@@ -120,8 +139,11 @@ namespace BST
             while(nums.Count != 0)
                 yield return nums.Dequeue();
         }
+
         #endregion
+
         #region Balance Tree
+
         public void CrismasTree()
         {
             //Ne beite ia tolko eto pridumal
@@ -134,14 +156,21 @@ namespace BST
             foreach (var a in numsList)
                 Add(a);
         }
+
         #endregion
+
+        #region string functions region
+
         public string ToString(char join)
         {
             return $"Tree: {string.Join(join, PreOrder(this))}";
         }
+
         public override string ToString()
         {
             return $"Tree: {string.Join(',', PreOrder(this))}";
         }
+
+        #endregion
     }
 }
