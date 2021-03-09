@@ -8,13 +8,11 @@ namespace BST
         private static void Main(string[] args)
         {
             BinaryTree<Vallet> tree = new BinaryTree<Vallet>(CreateMyVallet(), null);
-
+            //noraml input "500,0,0,abraham"
             for (int i = 4; i < 100; i++)
                 tree.Add(new Vallet(random.Next(3, i * 10), random.Next(0, i), random.Next(0, i), ValletUsers.GetRangomUser));
 
-            tree.CrismasTree();
-
-            Console.WriteLine(tree.ToString('\n'));
+            Console.WriteLine(tree.ToStringAndSplitByChar('\n'));
         }
         private static Vallet CreateMyVallet()
         {
@@ -28,7 +26,7 @@ namespace BST
             }
             catch
             {
-                vallet = new Vallet(0, 0, 0, ValletUsers.GetRangomUser);
+                vallet = new Vallet(500, 0, 0, ValletUsers.GetRangomUser);
             }
             return vallet;
         }

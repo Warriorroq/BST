@@ -10,11 +10,11 @@ namespace BST
         private BinaryTree<T> parent;
         private BinaryTree<T> left;
         private BinaryTree<T> right;
-        public T item;
+        public Cell<T> cell;
 
         public BinaryTree(T item, BinaryTree<T> parent)
         {
-            this.item = item;
+            this.cell = new Cell<T>(item);
             this.parent = parent;
         }
 
@@ -22,7 +22,7 @@ namespace BST
 
         public void Add(T item)
         {
-            if (item.CompareTo(this.item) < 0)
+            if (item.CompareTo(this.cell.GetItem()) < 0)
                 AddToTree(ref left, item);
             else
                 AddToTree(ref right, item);
@@ -47,22 +47,22 @@ namespace BST
 
         public BinaryTree<T> Find(T item)
         {
-            return Find(this, item);
+            return Find(this, new Cell<T>(item));
         }
 
         public bool Contains(T item)
         {
-            return !(Find(this, item) is null);
+            return !(Find(this, new Cell<T>(item)) is null);
         }
 
-        private BinaryTree<T> Find(BinaryTree<T> tree, T item)
+        private BinaryTree<T> Find(BinaryTree<T> tree, Cell<T> item)
         {
             if (tree is null) 
                 return null;
 
-            if(item.CompareTo(tree.item) == 1)
+            if(item.CompareTo(tree.cell) == 1)
                 return Find(tree.right, item);
-            else if (item.CompareTo(tree.item) == -1)
+            else if (item.CompareTo(tree.cell) == -1)
                 return Find(tree.left, item);
             else
                 return tree;
@@ -74,7 +74,7 @@ namespace BST
 
         public BinaryTree<T> Remove(T val)
         {
-            BinaryTree<T> removeTree = Find(this, val);
+            BinaryTree<T> removeTree = Find(this, new Cell<T>(val));
 
             if(!(removeTree is null))
                 return RemoveTree(removeTree);
@@ -100,29 +100,6 @@ namespace BST
         #endregion
 
         #region Iterator of BinaryTree
-
-        private void PreOrder(BinaryTree<T> tree, Queue<T> values)
-        {
-            if (tree is null) 
-                return;
-
-            values.Enqueue(tree.item);
-            PreOrder(tree.left, values);
-            PreOrder(tree.right, values);
-        }
-
-        private Queue<T> PreOrder(BinaryTree<T> tree)
-        {
-            Queue<T> values = new Queue<T>();
-            if (tree is null)
-                return null;
-
-            values.Enqueue(tree.item);
-            PreOrder(tree.left, values);
-            PreOrder(tree.right, values);
-            return values;
-        }
-
         private BinaryTree<T> PreOrderLastLeftTree(BinaryTree<T> tree)
         {
             if (!(tree.left is null))
@@ -133,42 +110,35 @@ namespace BST
 
         public IEnumerator GetEnumerator()
         {
-            Queue<T> nums = new Queue<T>();
-            PreOrder(this, nums); 
+            yield return cell.GetItem();
 
-            while(nums.Count != 0)
-                yield return nums.Dequeue();
-        }
+            if (!(right is null))
+                foreach (var treeValue in right)
+                    yield return treeValue;
 
-        #endregion
-
-        #region Balance Tree
-
-        public void CrismasTree()
-        {
-            //Ne beite ia tolko eto pridumal
-            List<T> numsList = new List<T>(PreOrder(this));
-            numsList.Sort();
-            item = numsList[(int)(((float)numsList.Count / 2) + 0.5f)];
-            numsList.Remove(item);
-            left = null;
-            right = null;
-            foreach (var a in numsList)
-                Add(a);
+            if (!(left is null))
+                foreach (var TreeValue in left)
+                    yield return TreeValue;
         }
 
         #endregion
 
         #region string functions region
 
-        public string ToString(char join)
+        public string ToStringAndSplitByChar(char join)
         {
-            return $"Tree: {string.Join(join, PreOrder(this))}";
+            var items = new List<T>();
+            foreach (T a in this)
+                items.Add(a);
+            return $"Tree: {string.Join(',', items)}";
         }
 
         public override string ToString()
         {
-            return $"Tree: {string.Join(',', PreOrder(this))}";
+            var items = new List<T>();
+            foreach (T a in this)
+                items.Add(a);
+            return $"Tree: {string.Join(',', items)}";
         }
 
         #endregion
